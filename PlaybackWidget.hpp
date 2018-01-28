@@ -1,7 +1,7 @@
 #ifndef PLAYBACKWIDGET_HPP
 #define PLAYBACKWIDGET_HPP
 
-#include <QWidget>
+#include <QtWidgets>
 
 namespace Ui {
 class PlaybackWidget;

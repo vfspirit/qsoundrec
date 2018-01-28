@@ -1,9 +1,8 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
-#include <QMainWindow>
-#include <QAudioRecorder>
-#include <QMediaPlayer>
+#include <QtWidgets>
+#include <QtMultimedia>
 #include "PlaybackWidget.hpp"
 #include "SettingsWindow.hpp"
 #include "RecordingModel.hpp"

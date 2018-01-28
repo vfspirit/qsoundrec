@@ -1,9 +1,8 @@
 #ifndef RECORDINGMODEL_HPP
 #define RECORDINGMODEL_HPP
 
-#include <QStandardItemModel>
-#include <QSettings>
-#include <QList>
+#include <QtCore>
+#include <QtWidgets>
 #include "Recording.hpp"
 
 class RecordingModel : public QStandardItemModel

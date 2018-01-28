@@ -1,4 +1,3 @@
-#include <QFile>
 #include "RecordingModel.hpp"
 
 RecordingModel::RecordingModel(QObject *parent, QSettings *settings) :

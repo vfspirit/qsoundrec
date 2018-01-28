@@ -1,11 +1,9 @@
 #ifndef SETTINGSWINDOW_HPP
 #define SETTINGSWINDOW_HPP
 
-#include <QDialog>
-#include <QSettings>
-#include <QAudioRecorder>
-#include <QAudioEncoderSettings>
-#include <QMap>
+#include <QtCore>
+#include <QtMultimedia>
+#include <QtWidgets>
 
 namespace Ui {
 class SettingsWindow;

@@ -1,4 +1,3 @@
-#include <QFileInfo>
 #include "Recording.hpp"
 
 Recording::Recording(QObject *parent) :

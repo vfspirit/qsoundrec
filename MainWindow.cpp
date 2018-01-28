@@ -1,13 +1,4 @@
-#include <QCoreApplication>
-#include <QDateTime>
-#include <QUrl>
-#include <QStringList>
-#include <QMessageBox>
-#include <QInputDialog>
-#include <QFile>
-#include <QDir>
-#include <QMimeDatabase>
-#include <QMimeType>
+#include <QtCore>
 #include "MainWindow.hpp"
 #include "ui_MainWindow.h"
 

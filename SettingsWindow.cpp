@@ -1,5 +1,3 @@
-#include <QStandardPaths>
-#include <QFileDialog>
 #include "SettingsWindow.hpp"
 #include "ui_SettingsWindow.h"
 

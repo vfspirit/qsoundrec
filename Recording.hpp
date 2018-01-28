@@ -1,8 +1,7 @@
 #ifndef RECORDING_HPP
 #define RECORDING_HPP
 
-#include <QObject>
-#include <QString>
+#include <QtCore>
 
 class Recording : public QObject
 {

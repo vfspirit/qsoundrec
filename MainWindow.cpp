@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionPlay, &QAction::triggered, this, &MainWindow::actionPlay);
     connect(ui->actionPause, &QAction::triggered, this, &MainWindow::actionPause);
     connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::actionAbout);
+    connect(ui->listView, &QListView::doubleClicked, this, &MainWindow::actionEdit);
     connect(&audioRecorder, &QAudioRecorder::durationChanged, this, &MainWindow::durationChanged);
     connect(&mediaPlayer, &QMediaPlayer::positionChanged, this, &MainWindow::playbackPositionChanged);
     connect(&mediaPlayer, &QMediaPlayer::mediaStatusChanged, this, &MainWindow::playbackStatusChanged);

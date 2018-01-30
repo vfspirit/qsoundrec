@@ -9,8 +9,6 @@ class RecordingModel : public QStandardItemModel
 {
     Q_OBJECT
 public:
-    enum {NameRole = Qt::UserRole + 1, PathRole};
-
     RecordingModel(QObject *parent, QSettings *settings);
     void append(Recording *recording);
     void deleteByPath(const QString &path);

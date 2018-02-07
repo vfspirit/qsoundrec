@@ -143,11 +143,13 @@ void MainWindow::actionExit()
 
 void MainWindow::actionEdit()
 {
-    Recording *recording = (Recording *)ui->listView->currentIndex().data(Qt::UserRole).value<void *>();
-    bool ok;
-    QString name = QInputDialog::getText(this, tr("Rename"), tr("New name for recording:"), QLineEdit::Normal, *recording, &ok);
-    if (ok) {
-        recording->setName(name, true);
+    if (ui->actionRename->isEnabled()) {
+        Recording *recording = (Recording *)ui->listView->currentIndex().data(Qt::UserRole).value<void *>();
+        bool ok;
+        QString name = QInputDialog::getText(this, tr("Rename"), tr("New name for recording:"), QLineEdit::Normal, *recording, &ok);
+        if (ok) {
+            recording->setName(name, true);
+        }
     }
 }
 

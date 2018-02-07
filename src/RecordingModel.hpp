@@ -11,13 +11,16 @@ class RecordingModel : public QStandardItemModel
 public:
     RecordingModel(QObject *parent, QSettings *settings);
     void append(Recording *recording);
-    void saveChanges();
 
 private:
     void refresh();
 
     QSettings *settings;
     QList<Recording *> recordings;
+
+private slots:
+    void saveChanges();
+    void recordingRemoved(Recording *recording);
 };
 
 #endif // RECORDINGMODEL_HPP

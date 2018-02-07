@@ -3,14 +3,7 @@
 Recording::Recording(QObject *parent) :
     QObject(parent)
 {
-    state = EMPTY;
-}
 
-Recording::Recording(QObject *parent, RecordingModel *model) :
-    QObject(parent)
-{
-    this->model = model;
-    state = EMPTY;
 }
 
 Recording::Recording(const Recording &recording) :
@@ -18,7 +11,6 @@ Recording::Recording(const Recording &recording) :
 {
     this->name = recording.getName();
     this->path = recording.getPath();
-    this->state = recording.getState();
 
 }
 
@@ -47,7 +39,7 @@ void Recording::setName(const QString &name, bool touch)
     this->name = name;
 
     if (touch) {
-        state = MODIFIED;
+        emit modified();
     }
 }
 
@@ -61,17 +53,7 @@ void Recording::setPath(const QString &path)
     this->path = path;
 }
 
-Recording::State Recording::getState() const
-{
-    return state;
-}
-
-RecordingModel* Recording::getModel() const
-{
-    return model;
-}
-
 void Recording::remove()
 {
-    state = DELETED;
+    emit removed(this);
 }

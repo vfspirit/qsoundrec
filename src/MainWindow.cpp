@@ -77,7 +77,7 @@ void MainWindow::updateState(PlaybackState state)
 void MainWindow::actionRecord()
 {
     if (currentState == READY) {
-        currentRecording = new Recording(this, model);
+        currentRecording = new Recording(this);
 
         QDir dir;
         if (!dir.exists(settingsWindow->getSavePath())) {
@@ -148,7 +148,6 @@ void MainWindow::actionEdit()
     QString name = QInputDialog::getText(this, tr("Rename"), tr("New name for recording:"), QLineEdit::Normal, *recording, &ok);
     if (ok) {
         recording->setName(name, true);
-        model->saveChanges();
     }
 }
 
@@ -159,8 +158,6 @@ void MainWindow::actionDelete()
     if (answer == QMessageBox::Yes) {
         Recording *recording = (Recording *)ui->listView->currentIndex().data(Qt::UserRole).value<void *>();
         recording->remove();
-        model->saveChanges();
-        updateState(currentState);
     }
 }
 

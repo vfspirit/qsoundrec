@@ -3,15 +3,23 @@
 Recording::Recording(QObject *parent) :
     QObject(parent)
 {
-    empty = true;
+    state = EMPTY;
+}
+
+Recording::Recording(QObject *parent, RecordingModel *model) :
+    QObject(parent)
+{
+    this->model = model;
+    state = EMPTY;
 }
 
 Recording::Recording(const Recording &recording) :
     QObject(recording.parent())
 {
-    this->empty = recording.isEmpty();
     this->name = recording.getName();
     this->path = recording.getPath();
+    this->state = recording.getState();
+
 }
 
 Recording Recording::operator=(const Recording &recording)
@@ -34,9 +42,13 @@ QString Recording::getName() const
     return name;
 }
 
-void Recording::setName(const QString &name)
+void Recording::setName(const QString &name, bool touch)
 {
     this->name = name;
+
+    if (touch) {
+        state = MODIFIED;
+    }
 }
 
 QString Recording::getPath() const
@@ -49,12 +61,17 @@ void Recording::setPath(const QString &path)
     this->path = path;
 }
 
-bool Recording::isEmpty() const
+Recording::State Recording::getState() const
 {
-    return empty;
+    return state;
 }
 
-void Recording::setEmpty(bool empty)
+RecordingModel* Recording::getModel() const
 {
-    this->empty = empty;
+    return model;
+}
+
+void Recording::remove()
+{
+    state = DELETED;
 }

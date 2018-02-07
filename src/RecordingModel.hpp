@@ -11,15 +11,13 @@ class RecordingModel : public QStandardItemModel
 public:
     RecordingModel(QObject *parent, QSettings *settings);
     void append(Recording *recording);
-    void deleteByPath(const QString &path);
-    void setNameByPath(const QString &path, const QString &name);
+    void saveChanges();
 
 private:
-    void saveChanges();
     void refresh();
 
     QSettings *settings;
-    QList<Recording> recordings;
+    QList<Recording *> recordings;
 };
 
 #endif // RECORDINGMODEL_HPP

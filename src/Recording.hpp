@@ -3,25 +3,31 @@
 
 #include <QtCore>
 
+class RecordingModel;
+
 class Recording : public QObject
 {
 public:
+    enum State {EMPTY, MODIFIED, DELETED, CURRENT};
+
     explicit Recording(QObject *parent = nullptr);
+    Recording(QObject *parent, RecordingModel *model);
     Recording(const Recording &recording);
     Recording operator=(const Recording &recording);
     operator QString() const;
     QString getName() const;
-    void setName(const QString &name);
+    void setName(const QString &name, bool touch = false);
     QString getPath() const;
     void setPath(const QString &path);
-    bool isEmpty() const;
-    void setEmpty(bool empty);
+    State getState() const;
+    RecordingModel* getModel() const;
+    void remove();
 
 private:
+    RecordingModel *model;
     QString name;
     QString path;
-    bool empty;
+    State state;
 };
-Q_DECLARE_METATYPE(Recording)
 
 #endif // RECORDING_HPP

@@ -77,7 +77,7 @@ void MainWindow::updateState(PlaybackState state)
 void MainWindow::actionRecord()
 {
     if (currentState == READY) {
-        currentRecording = new Recording();
+        currentRecording = new Recording(this, model);
 
         QDir dir;
         if (!dir.exists(settingsWindow->getSavePath())) {
@@ -95,8 +95,8 @@ void MainWindow::actionRecord()
 void MainWindow::actionPlay()
 {
     if (currentState == READY) {
-        Recording recording = qvariant_cast<Recording>(ui->listView->currentIndex().data(Qt::UserRole));
-        mediaPlayer.setMedia(QUrl::fromLocalFile(recording.getPath()));
+        Recording *recording = (Recording *)ui->listView->currentIndex().data(Qt::UserRole).value<void *>();
+        mediaPlayer.setMedia(QUrl::fromLocalFile(recording->getPath()));
     }
 
     mediaPlayer.play();
@@ -129,7 +129,6 @@ void MainWindow::actionStop()
         currentRecording->setPath(newPath);
 
         model->append(currentRecording);
-        delete currentRecording;
     } else if (currentState == PLAYBACK || currentState == PLAYBACK_PAUSED) {
         mediaPlayer.stop();
     }
@@ -144,11 +143,12 @@ void MainWindow::actionExit()
 
 void MainWindow::actionEdit()
 {
-    Recording recording = qvariant_cast<Recording>(ui->listView->currentIndex().data(Qt::UserRole));
+    Recording *recording = (Recording *)ui->listView->currentIndex().data(Qt::UserRole).value<void *>();
     bool ok;
-    QString name = QInputDialog::getText(this, tr("Rename"), tr("New name for recording:"), QLineEdit::Normal, recording, &ok);
+    QString name = QInputDialog::getText(this, tr("Rename"), tr("New name for recording:"), QLineEdit::Normal, *recording, &ok);
     if (ok) {
-        model->setNameByPath(recording.getPath(), name);
+        recording->setName(name, true);
+        model->saveChanges();
     }
 }
 
@@ -157,8 +157,9 @@ void MainWindow::actionDelete()
     QString selectedName = ui->listView->currentIndex().data().toString();
     QMessageBox::StandardButton answer = QMessageBox::question(this, tr("Confirm deletion"), QString::asprintf(tr("Are you sure you want to delete the following: %s?").toStdString().c_str(), selectedName.toStdString().c_str()), QMessageBox::Yes | QMessageBox::No);
     if (answer == QMessageBox::Yes) {
-        Recording recording = qvariant_cast<Recording>(ui->listView->currentIndex().data(Qt::UserRole));
-        model->deleteByPath(recording.getPath());
+        Recording *recording = (Recording *)ui->listView->currentIndex().data(Qt::UserRole).value<void *>();
+        recording->remove();
+        model->saveChanges();
         updateState(currentState);
     }
 }
